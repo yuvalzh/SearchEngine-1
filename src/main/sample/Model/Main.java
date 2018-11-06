@@ -16,6 +16,7 @@ public class Main extends Application {
        // primaryStage.show();
         ReadFile rf = new ReadFile();
         rf.ReadFile("/Users/eranedri/IdeaProjects/SearchEngine-Part1/corpus");
+        rf.ProccessSubFilesToDocs(rf.SubFilesPath);
     }
 
 

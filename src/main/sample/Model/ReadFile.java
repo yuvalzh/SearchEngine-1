@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+
 
 
 
@@ -31,16 +34,16 @@ public class ReadFile {
 
 
     public void ProccessSubFilesDirectories(File path) throws IOException {
-        File [] SubDirectories = path.listFiles();
+        File file = new File(String.valueOf(path));
+        File [] SubDirectories = file.listFiles();
         for(int i=0 ;i<SubDirectories.length;i++){
             if (SubDirectories[i].isFile() && SubDirectories[i] != null){
                 SubFilesPath.add(SubDirectories[i].getAbsoluteFile());
             }
             else if(SubDirectories[i] != null && SubDirectories[i].isDirectory()){
-                ProccessSubFilesDirectories(SubDirectories[i]);
+                ProccessSubFilesDirectories(SubDirectories[i].getAbsoluteFile());
             }
         }
-        ProccessSubFilesToDocs(SubFilesPath);
     }
 
     public HashMap<String, String> ProccessSubFilesToDocs(ArrayList<File> subdirectory) throws IOException {
@@ -54,9 +57,13 @@ public class ReadFile {
                     line = bfr.readLine();
                 }
                 String content = stb.toString();
-                String DocID;
-                String DocText;
-               // Docs.put(DocID,DocText);
+                Document d = Jsoup.parse(content);
+                Elements elements = d.getElementsByTag("DOC");
+                for (Element element : elements){
+                String DocID = element.getElementsByTag("DOCNO").text();
+                String DocText = element.getElementsByTag("TEXT").text();
+                Docs.put(DocID,DocText);
+                }
             }
         }
         return Docs;
