@@ -12,9 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-
-
-
 public class ReadFile {
 
     protected File MainPath;
@@ -25,7 +22,7 @@ public class ReadFile {
 
     public void ReadFile(String path) throws IOException {
         this.MainPath= new File(path);
-        Docs = new HashMap<String, String>();
+        Docs = new HashMap<>();
         SubFilesPath = new ArrayList<File>();
         if(MainPath.isDirectory() && MainPath != null) {
             ProccessSubFilesDirectories(MainPath);
