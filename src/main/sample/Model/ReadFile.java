@@ -43,7 +43,7 @@ public class ReadFile {
         }
     }
 
-    public HashMap<String, String> ProccessSubFilesToDocs(ArrayList<File> subdirectory) throws IOException {
+    public void ProccessSubFilesToDocs(ArrayList<File> subdirectory) throws IOException {
         for (int i = 0; i < subdirectory.size(); i++) {
             File f = new File(subdirectory.get(i).getAbsolutePath());
             try (BufferedReader bfr = new BufferedReader(new FileReader(f))) {
@@ -63,7 +63,7 @@ public class ReadFile {
                 }
             }
         }
-        return Docs;
+       // return Docs;
     }
 
 }

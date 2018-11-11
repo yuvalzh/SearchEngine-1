@@ -14,8 +14,8 @@ public class Parse {
     HashSet<String> StopWords;
     HashMap<String,Term> Terms;
     Stemmer stemmer;
-    String DocID
-    boolean IsStemmerNeede;
+    String DocID;
+    boolean IsStemmerNeeded;
     boolean IsRegNumber;
     boolean IsPrecent;
     boolean IsAPrice;
@@ -23,7 +23,7 @@ public class Parse {
     boolean IsARange;
 
 
-    public Parse(HashMap<String, String> Docs,boolean stem , String SopWordsPath) {
+    public Parse(HashMap<String, String> Docs,boolean StemmerNeeded , String StopWordsPath) {
         StopWords = new HashSet<>();
         Terms = new HashMap<>();
         stemmer = new Stemmer();
