@@ -33,6 +33,8 @@ public class Parse {
         InitiateDates();
         InitiateStopWords();
 
+        //needed to split the docs to tokens!!
+
 
 
 
@@ -69,5 +71,29 @@ public class Parse {
         Date_DataStructure.put("JANUARY", "01"); Date_DataStructure.put("FEBUARY", "02"); Date_DataStructure.put("MARCH", "03"); Date_DataStructure.put("APRIL", "04");
         Date_DataStructure.put("JUNE", "06"); Date_DataStructure.put("JULY", "07"); Date_DataStructure.put("AUGUST", "08"); Date_DataStructure.put("SEPTEMBER", "09");
         Date_DataStructure.put("OCTOBER", "10"); Date_DataStructure.put("NOVEMBER", "11"); Date_DataStructure.put("DECEMBER", "12");
+    }
+
+    public void SuspectedAsNumber(){
+
+    }
+
+    public void SuspectedAsCapital(){
+
+    }
+
+    public void SuspectedAsPercent(){
+
+    }
+
+    public void SuspectedAsPrice(){
+
+    }
+
+    public void SuspectedAsDate(){
+
+    }
+
+    public void SuspectedAsRange(){
+
     }
 }
