@@ -1,8 +1,7 @@
 package main.sample.Model;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -10,11 +9,12 @@ import java.util.regex.Pattern;
 
 public class Parse {
 
-    static HashMap<String,String> Date_DataStructure = new HashMap<>();
+    HashMap<String,String> Date_DataStructure;
     HashSet<String> StopWords;
     HashMap<String,Term> Terms;
     Stemmer stemmer;
     String DocID;
+    String StopWordsPath;
     boolean IsStemmerNeeded;
     boolean IsRegNumber;
     boolean IsPrecent;
@@ -23,10 +23,15 @@ public class Parse {
     boolean IsARange;
 
 
-    public Parse(HashMap<String, String> Docs,boolean StemmerNeeded , String StopWordsPath) {
+    public Parse(HashMap<String, String> Docs,boolean stemmerneeded , String stopwordspath) {
+        this.StopWordsPath = stopwordspath;
+        this.IsStemmerNeeded=stemmerneeded;
         StopWords = new HashSet<>();
         Terms = new HashMap<>();
+        Date_DataStructure = new HashMap<>();
         stemmer = new Stemmer();
+        InitiateDates();
+        InitiateStopWords();
 
 
 
@@ -34,5 +39,35 @@ public class Parse {
 
 
 
+
+
+    }
+
+    public void InitiateStopWords(){
+        File f = new File(this.StopWordsPath);
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(f))){
+            String line = bufferedReader.readLine();
+            while (line != null ){
+                StopWords.add(line);
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InitiateDates(){
+        Date_DataStructure.put("JAN", "01"); Date_DataStructure.put("FEB", "02"); Date_DataStructure.put("MAR", "03"); Date_DataStructure.put("APR", "04");
+        Date_DataStructure.put("MAY", "05"); Date_DataStructure.put("JUN", "06"); Date_DataStructure.put("JUL", "07"); Date_DataStructure.put("AUG", "08");
+        Date_DataStructure.put("SEP", "09"); Date_DataStructure.put("OCT", "10"); Date_DataStructure.put("NOV", "11"); Date_DataStructure.put("DEC", "12");
+        Date_DataStructure.put("Jan", "01"); Date_DataStructure.put("Feb", "01"); Date_DataStructure.put("Mar", "03"); Date_DataStructure.put("Apr", "04");
+        Date_DataStructure.put("May", "05"); Date_DataStructure.put("Jun", "06"); Date_DataStructure.put("Jul", "07"); Date_DataStructure.put("Aug", "08");
+        Date_DataStructure.put("Sep", "09"); Date_DataStructure.put("Oct", "10"); Date_DataStructure.put("Nov", "11"); Date_DataStructure.put("Dec", "12");
+        Date_DataStructure.put("January", "01"); Date_DataStructure.put("February", "02"); Date_DataStructure.put("March", "03"); Date_DataStructure.put("April", "04");
+        Date_DataStructure.put("June", "06"); Date_DataStructure.put("July", "07"); Date_DataStructure.put("August", "08"); Date_DataStructure.put("September", "09");
+        Date_DataStructure.put("October", "10"); Date_DataStructure.put("November", "11"); Date_DataStructure.put("December", "12");
+        Date_DataStructure.put("JANUARY", "01"); Date_DataStructure.put("FEBUARY", "02"); Date_DataStructure.put("MARCH", "03"); Date_DataStructure.put("APRIL", "04");
+        Date_DataStructure.put("JUNE", "06"); Date_DataStructure.put("JULY", "07"); Date_DataStructure.put("AUGUST", "08"); Date_DataStructure.put("SEPTEMBER", "09");
+        Date_DataStructure.put("OCTOBER", "10"); Date_DataStructure.put("NOVEMBER", "11"); Date_DataStructure.put("DECEMBER", "12");
     }
 }

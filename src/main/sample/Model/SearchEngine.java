@@ -15,9 +15,10 @@ public class SearchEngine {
         CorpusPath = corpusPath;
         StopWordsPath = stopWordsPath;
         StemmerNeeded = Steemer;
+        Docs = new HashMap<String, String>();
         ReadFile readFile = new ReadFile();
-        readFile.ReadFile(CorpusPath);
-        Parse parse = new Parse(readFile.Docs,StemmerNeeded,StopWordsPath);
+        Docs = readFile.ReadFile(CorpusPath);
+        Parse parse = new Parse(Docs,StemmerNeeded,StopWordsPath);
     }
 
 }

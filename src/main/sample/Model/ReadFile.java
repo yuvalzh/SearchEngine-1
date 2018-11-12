@@ -16,31 +16,31 @@ public class ReadFile {
 
     protected File MainPath;
     public ArrayList<File> SubFilesPath;
-    public HashMap<String, String> Docs;
+    static public HashMap<String, String> Docs;
     public StringBuilder stb;
 
 
-    public void ReadFile(String path) throws IOException {
+    public HashMap<String,String> ReadFile(String path) throws IOException {
         this.MainPath= new File(path);
         Docs = new HashMap<>();
         SubFilesPath = new ArrayList<File>();
         if(MainPath.isDirectory() && MainPath != null) {
-            ProccessSubFilesDirectories(MainPath);
+            ProccessSubFilesDirectories(MainPath.getAbsolutePath());
+            ProccessSubFilesToDocs(SubFilesPath);
         }
+        return Docs;
     }
 
 
-    public void ProccessSubFilesDirectories(File path) throws IOException {
-        File file = new File(String.valueOf(path));
+    public void ProccessSubFilesDirectories(String path) throws IOException {
+        File file = new File(path);
         File [] SubDirectories = file.listFiles();
-        for(int i=0 ;i<SubDirectories.length;i++){
-            if (SubDirectories[i].isFile() && SubDirectories[i] != null){
-                SubFilesPath.add(SubDirectories[i].getAbsoluteFile());
+        for(File tmp : SubDirectories)
+            if (tmp.isFile() && tmp != null) {
+                SubFilesPath.add(tmp);
+            } else if (tmp != null && tmp.isDirectory()) {
+                ProccessSubFilesDirectories(tmp.getAbsolutePath());
             }
-            else if(SubDirectories[i] != null && SubDirectories[i].isDirectory()){
-                ProccessSubFilesDirectories(SubDirectories[i].getAbsoluteFile());
-            }
-        }
     }
 
     public void ProccessSubFilesToDocs(ArrayList<File> subdirectory) throws IOException {
@@ -57,13 +57,12 @@ public class ReadFile {
                 Document d = Jsoup.parse(content);
                 Elements elements = d.getElementsByTag("DOC");
                 for (Element element : elements){
-                String DocID = element.getElementsByTag("DOCNO").text();
-                String DocText = element.getElementsByTag("TEXT").text();
-                Docs.put(DocID,DocText);
+                    String DocID = element.getElementsByTag("DOCNO").text();
+                    String DocText = element.getElementsByTag("TEXT").text();
+                    Docs.put(DocID,DocText);
                 }
             }
         }
-       // return Docs;
     }
 
 }
