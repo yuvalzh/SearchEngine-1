@@ -9,7 +9,6 @@ public class Parse {
     HashMap<String,String> Date_DataStructure;
     HashSet<String> StopWords;
     HashMap<String,Term> Terms;
-    //HashSet<MyDocument> Documents;
     Stemmer stemmer;
     String StopWordsPath;
     boolean IsStemmerNeeded;
@@ -26,7 +25,6 @@ public class Parse {
         StopWords = new HashSet<>();
         Terms = new HashMap<>();
         Date_DataStructure = new HashMap<>();
-        //Documents = new HashSet<>();
         stemmer = new Stemmer();
         InitiateDates();
         InitiateStopWords();
@@ -50,13 +48,12 @@ public class Parse {
 
 
     public void ParseDoc(MyDocument doc , boolean stemmerneeded){
-        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getText().split("[\\*\\ \\:\\?\\(\\)]+")));
-        EliminateStopWords(DocList);
+        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getText().split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
 
 
-        if(stemmerneeded){
-            StemmDoc(DocList);
-        }
+
+
+
 
 
 
@@ -85,11 +82,6 @@ public class Parse {
     }
 
     public void SuspectedAsRange(){
-
-    }
-
-    public void EliminateStopWords(ArrayList<String> Doctext){
-
 
     }
 
