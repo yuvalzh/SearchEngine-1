@@ -36,12 +36,6 @@ public class Parse {
         }
 
 
-
-
-
-
-
-
     }
 
 
@@ -49,6 +43,7 @@ public class Parse {
 
     public void ParseDoc(MyDocument doc , boolean stemmerneeded){
         ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getText().split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
+        for(int i=0;i<DocList.size();i++){
 
 
 
@@ -56,6 +51,11 @@ public class Parse {
 
 
 
+
+
+
+
+        }
 
 
 
