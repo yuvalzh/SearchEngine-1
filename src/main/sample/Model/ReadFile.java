@@ -20,7 +20,9 @@ public class ReadFile {
     public StringBuilder stb;
 
 
-    public HashSet<MyDocument> ReadFile(String path) throws IOException {
+    public void ReadFile(){ }
+
+    public HashSet<MyDocument> ReadAllDocs(String path) throws IOException {
         this.MainPath= new File(path);
         Docs = new HashSet<>();
         SubFilesPath = new ArrayList<File>();
@@ -61,8 +63,9 @@ public class ReadFile {
                     String DocDate = element.getElementsByTag("DATE1").text();
                     String DocTitle = element.getElementsByTag("TI").text();
                     String DocText = element.getElementsByTag("TEXT").text();
+                    String DocCity = element.getElementsByTag("<FP=104>").text();
                     String DocDirectory = f.getAbsolutePath();
-                    MyDocument tmp = new MyDocument(DocID,DocDirectory,DocDate,DocTitle,DocText);
+                    MyDocument tmp = new MyDocument(DocID,DocDirectory,DocDate,DocTitle,DocText,DocCity);
                     Docs.add(tmp);
                 }
             }

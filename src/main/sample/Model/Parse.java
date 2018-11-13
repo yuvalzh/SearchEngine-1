@@ -6,38 +6,38 @@ import java.util.*;
 
 public class Parse {
 
-    HashMap<String,String> Date_DataStructure;
-    HashSet<String> StopWords;
-    HashMap<String,Term> Terms;
-    Stemmer stemmer;
-    String StopWordsPath;
-    boolean IsStemmerNeeded;
-    boolean IsRegNumber;
-    boolean IsPrecent;
-    boolean IsAPrice;
-    boolean IsADate;
-    boolean IsARange;
+    private static HashMap<String,String> Date_DataStructure;
+    private static HashSet<String> StopWords;
+    public static HashMap<Term,String> Terms;
+    public Stemmer stemmer;
+    public String StopWordsPath;
+    public StringBuilder stb;
+    protected boolean IsStemmerNeeded;
+    protected boolean IsRegNumber;
+    protected boolean IsPrecent;
+    protected boolean IsAPrice;
+    protected boolean IsADate;
+    protected boolean IsARange;
 
+    public void Parse(){ }
 
-    public Parse(HashSet<MyDocument> Docs,boolean stemmerneeded , String stopwordspath) {
+    public HashMap<Term,String> ParseCorpus(HashSet<MyDocument> Docs,boolean stemmerneeded , String stopwordspath) {
         this.StopWordsPath = stopwordspath;
         this.IsStemmerNeeded=stemmerneeded;
         StopWords = new HashSet<>();
         Terms = new HashMap<>();
         Date_DataStructure = new HashMap<>();
         stemmer = new Stemmer();
+        stb = new StringBuilder();
         InitiateDates();
         InitiateStopWords();
-
         Iterator<MyDocument> it = Docs.iterator();
         while (it.hasNext()) {
             ParseDoc(it.next(),IsStemmerNeeded);
             it.remove();
         }
-
-
+        return Terms;
     }
-
 
 
 
@@ -48,41 +48,37 @@ public class Parse {
 
 
 
-
-
-
-
-
-
-
         }
-
-
-
     }
 
-    public void SuspectedAsNumber(){
+    public StringBuilder SuspectedAsNumber(String token){
 
+        return stb;
     }
 
-    public void SuspectedAsCapital(){
+    public StringBuilder SuspectedAsCapital(String token){
 
+        return stb;
     }
 
-    public void SuspectedAsPercent(){
+    public StringBuilder SuspectedAsPercent(String token){
 
+        return stb;
     }
 
-    public void SuspectedAsPrice(){
+    public StringBuilder SuspectedAsPrice(String token){
 
+        return stb;
     }
 
-    public void SuspectedAsDate(){
+    public StringBuilder SuspectedAsDate(String token){
 
+        return stb;
     }
 
-    public void SuspectedAsRange(){
+    public StringBuilder SuspectedAsRange(String token){
 
+        return stb;
     }
 
     public void StemmDoc(ArrayList<String> Doctext){

@@ -7,13 +7,19 @@ public class MyDocument {
     public String DocDate;
     public String DocTitle;
     public String Text;
+    public Term MaxTF;
+    public int SpecialWords;
+    public String City;
 
-    public MyDocument(String docNum, String docDirectory, String docDate, String docTitle, String text) {
+    public MyDocument(String docNum, String docDirectory, String docDate, String docTitle, String text ,String city) {
         DocNum = docNum;
         DocDirectory = docDirectory;
         DocDate = docDate;
         DocTitle = docTitle;
         Text = text;
+        MaxTF = null;
+        SpecialWords =0;
+        City = city;
     }
 
     public MyDocument(){};
@@ -56,5 +62,29 @@ public class MyDocument {
 
     public void setText(String text) {
         Text = text;
+    }
+
+    public Term getMaxTF() {
+        return MaxTF;
+    }
+
+    public void setMaxTF(Term maxTF) {
+        MaxTF = maxTF;
+    }
+
+    public int getSpecialWords() {
+        return SpecialWords;
+    }
+
+    public void setSpecialWords(int specialWords) {
+        SpecialWords = specialWords;
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
     }
 }

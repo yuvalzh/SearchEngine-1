@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class SearchEngine {
-    String CorpusPath;
-    String StopWordsPath;
+    public String CorpusPath;
+    public String StopWordsPath;
     boolean StemmerNeeded;
     public HashSet<MyDocument> Docs;
+    public HashMap<Term ,String> Terms;
+    //public static HashMap<String, String> Dictionary;
+    //public HashMap<String,String> Posting;
 
 
 
@@ -16,10 +19,13 @@ public class SearchEngine {
         CorpusPath = corpusPath;
         StopWordsPath = stopWordsPath;
         StemmerNeeded = Steemer;
-        Docs = new HashSet<>();
+        //Docs = new HashSet<>();
         ReadFile readFile = new ReadFile();
-        Docs = readFile.ReadFile(CorpusPath);
-        Parse parse = new Parse(Docs,StemmerNeeded,StopWordsPath);
+        Docs = readFile.ReadAllDocs(CorpusPath);
+        Parse parse = new Parse();
+        Terms = parse.ParseCorpus(Docs,StemmerNeeded,StopWordsPath);
+        //Indexer indexer = new Indexer();
+        //indexer.CreateIndexer();
     }
 
 }
