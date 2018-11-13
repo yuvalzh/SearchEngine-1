@@ -1,6 +1,6 @@
 package main.sample.Model;
 
-public class Document {
+public class MyDocument {
 
     public String DocNum;
     public String DocDirectory;
@@ -8,7 +8,15 @@ public class Document {
     public String DocTitle;
     public String Text;
 
-    public void Document(){}
+    public MyDocument(String docNum, String docDirectory, String docDate, String docTitle, String text) {
+        DocNum = docNum;
+        DocDirectory = docDirectory;
+        DocDate = docDate;
+        DocTitle = docTitle;
+        Text = text;
+    }
+
+    public MyDocument(){};
 
     public String getDocNum() {
         return DocNum;

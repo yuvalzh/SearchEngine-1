@@ -2,18 +2,15 @@ package main.sample.Model;
 
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parse {
 
     HashMap<String,String> Date_DataStructure;
     HashSet<String> StopWords;
     HashMap<String,Term> Terms;
+    //HashSet<MyDocument> Documents;
     Stemmer stemmer;
-    String DocID;
     String StopWordsPath;
     boolean IsStemmerNeeded;
     boolean IsRegNumber;
@@ -23,23 +20,80 @@ public class Parse {
     boolean IsARange;
 
 
-    public Parse(HashMap<String, String> Docs,boolean stemmerneeded , String stopwordspath) {
+    public Parse(HashSet<MyDocument> Docs,boolean stemmerneeded , String stopwordspath) {
         this.StopWordsPath = stopwordspath;
         this.IsStemmerNeeded=stemmerneeded;
         StopWords = new HashSet<>();
         Terms = new HashMap<>();
         Date_DataStructure = new HashMap<>();
+        //Documents = new HashSet<>();
         stemmer = new Stemmer();
         InitiateDates();
         InitiateStopWords();
 
-        //needed to split the docs to tokens!!
+        Iterator<MyDocument> it = Docs.iterator();
+        while (it.hasNext()) {
+            ParseDoc(it.next(),IsStemmerNeeded);
+            it.remove();
+        }
 
 
 
 
 
 
+
+
+    }
+
+
+
+
+    public void ParseDoc(MyDocument doc , boolean stemmerneeded){
+        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getText().split("[\\*\\ \\:\\?\\(\\)]+")));
+        EliminateStopWords(DocList);
+
+
+        if(stemmerneeded){
+            StemmDoc(DocList);
+        }
+
+
+
+
+
+    }
+
+    public void SuspectedAsNumber(){
+
+    }
+
+    public void SuspectedAsCapital(){
+
+    }
+
+    public void SuspectedAsPercent(){
+
+    }
+
+    public void SuspectedAsPrice(){
+
+    }
+
+    public void SuspectedAsDate(){
+
+    }
+
+    public void SuspectedAsRange(){
+
+    }
+
+    public void EliminateStopWords(ArrayList<String> Doctext){
+
+
+    }
+
+    public void StemmDoc(ArrayList<String> Doctext){
 
 
 
@@ -71,29 +125,5 @@ public class Parse {
         Date_DataStructure.put("JANUARY", "01"); Date_DataStructure.put("FEBUARY", "02"); Date_DataStructure.put("MARCH", "03"); Date_DataStructure.put("APRIL", "04");
         Date_DataStructure.put("JUNE", "06"); Date_DataStructure.put("JULY", "07"); Date_DataStructure.put("AUGUST", "08"); Date_DataStructure.put("SEPTEMBER", "09");
         Date_DataStructure.put("OCTOBER", "10"); Date_DataStructure.put("NOVEMBER", "11"); Date_DataStructure.put("DECEMBER", "12");
-    }
-
-    public void SuspectedAsNumber(){
-
-    }
-
-    public void SuspectedAsCapital(){
-
-    }
-
-    public void SuspectedAsPercent(){
-
-    }
-
-    public void SuspectedAsPrice(){
-
-    }
-
-    public void SuspectedAsDate(){
-
-    }
-
-    public void SuspectedAsRange(){
-
     }
 }

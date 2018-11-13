@@ -16,13 +16,13 @@ public class ReadFile {
 
     protected File MainPath;
     public ArrayList<File> SubFilesPath;
-    static public HashMap<String, String> Docs;
+    static public HashSet<MyDocument> Docs;
     public StringBuilder stb;
 
 
-    public HashMap<String,String> ReadFile(String path) throws IOException {
+    public HashSet<MyDocument> ReadFile(String path) throws IOException {
         this.MainPath= new File(path);
-        Docs = new HashMap<>();
+        Docs = new HashSet<>();
         SubFilesPath = new ArrayList<File>();
         if(MainPath.isDirectory() && MainPath != null) {
             ProccessSubFilesDirectories(MainPath.getAbsolutePath());
@@ -58,8 +58,12 @@ public class ReadFile {
                 Elements elements = d.getElementsByTag("DOC");
                 for (Element element : elements){
                     String DocID = element.getElementsByTag("DOCNO").text();
+                    String DocDate = element.getElementsByTag("DATE1").text();
+                    String DocTitle = element.getElementsByTag("TI").text();
                     String DocText = element.getElementsByTag("TEXT").text();
-                    Docs.put(DocID,DocText);
+                    String DocDirectory = f.getAbsolutePath();
+                    MyDocument tmp = new MyDocument(DocID,DocDirectory,DocDate,DocTitle,DocText);
+                    Docs.add(tmp);
                 }
             }
         }
