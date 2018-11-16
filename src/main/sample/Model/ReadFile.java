@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-
-import javafx.util.Pair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,15 +16,15 @@ public class ReadFile {
 
     protected File MainPath;
     public ArrayList<File> SubFilesPath;
-    static public HashSet<Pair> Docs;
+    public HashMap<String,DocDetailes> Docs; //<DocId,DocDetailes>  sent to parser!!
     public StringBuilder stb;
 
 
     public void ReadFile(){ }
 
-    public HashSet<Pair> ReadAllDocs(String path) throws IOException {
+    public HashMap<String,DocDetailes> ReadAllDocs(String path) throws IOException {
         this.MainPath= new File(path);
-        Docs = new HashSet<>();
+        Docs = new HashMap<>();
         SubFilesPath = new ArrayList<File>();
         if(MainPath.isDirectory() && MainPath != null) {
             ProccessSubFilesDirectories(MainPath.getAbsolutePath());
@@ -63,13 +61,14 @@ public class ReadFile {
                 for (Element element : elements){
                     String DocID = element.getElementsByTag("DOCNO").text();
                     String DocText = element.getElementsByTag("TEXT").text();
-                    String DocCity = element.getElementsByTag("<FP=104>").text();
-                    Pair<String,String> tmp = new Pair<>(DocText,DocCity);
-                    Pair ToAdd = new Pair(DocID,tmp);
-                    Docs.add(ToAdd);
+                    String DocDate = element.getElementsByTag("DATE1").text();
+                    String DocTitle = element.getElementsByTag("TI").text();
+                    String DocCity = element.getElementsByTag("F P=104").text();
+                    Docs.put(DocID,new DocDetailes(DocText,DocDate,DocTitle,DocCity));
                 }
             }
         }
     }
-
 }
+
+

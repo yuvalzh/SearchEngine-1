@@ -21,7 +21,7 @@ public class Indexer {
     }
 
 
-    public void CreateIndexer(HashSet<Pair> CorpusAfterParse){
+    public void CreateIndexer(HashMap<String,HashSet<String>> CorpusAfterParse){  // <Term ,HashSet<DocID>>
 
 
 

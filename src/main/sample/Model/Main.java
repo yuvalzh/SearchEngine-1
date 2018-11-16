@@ -14,7 +14,7 @@ public class Main extends Application {
 
     {
         try {
-            searchEngine = new SearchEngine("/Users/eranedri/IdeaProjects/SearchEngine-Part1/corpus","/Users/eranedri/IdeaProjects/SearchEngine-Part1/stop_words.txt",false);
+            searchEngine = new SearchEngine("/Users/eranedri/IdeaProjects/SearchEngine-Part1/Eran_Corpuse","/Users/eranedri/IdeaProjects/SearchEngine-Part1/stop_words.txt",false);
         } catch (IOException e) {
             e.printStackTrace();
         }

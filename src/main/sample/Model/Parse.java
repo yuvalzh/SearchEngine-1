@@ -10,7 +10,7 @@ public class Parse {
 
     private static HashMap<String,String> Date_DataStructure;
     private static HashSet<String> StopWords;
-    public static HashMap<String,String> Terms;  // <Term ,DocID>
+    public static HashMap<String,HashSet<String>> Terms;  // <Term ,HashSet<DocID> TermInDoc>  sent to indexer!!!
     public Stemmer stemmer;
     public String StopWordsPath;
     public StringBuilder stb;
@@ -23,7 +23,7 @@ public class Parse {
 
     public void Parse(){ }
 
-    public HashMap<String,String> ParseCorpus(HashSet<Pair> Docs, boolean stemmerneeded , String stopwordspath) {
+    public HashMap<String,HashSet<String>> ParseCorpus(HashMap<String,DocDetailes> Docs, boolean stemmerneeded , String stopwordspath) {
         this.StopWordsPath = stopwordspath;
         this.IsStemmerNeeded=stemmerneeded;
         StopWords = new HashSet<>();
@@ -33,18 +33,25 @@ public class Parse {
         stb = new StringBuilder();
         InitiateDates();
         InitiateStopWords();
-        Iterator<Pair> it = Docs.iterator();
-        while (it.hasNext()) {
-            ParseDoc(it.next(),IsStemmerNeeded);
-            it.remove();
+        // get keySet() into Set
+        Set<String> setOfKeySet = Docs.keySet();
+        // for-each loop
+        for(String DocId : setOfKeySet) {
+            String ToParse = Docs.get(DocId).getDocText();
+            ParseDoc(ToParse,IsStemmerNeeded);
         }
         return Terms;
     }
 
 
 
-    public void ParseDoc(Pair doc , boolean stemmerneeded){
-        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getValue().split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
+
+
+
+
+
+    public void ParseDoc(String DocText , boolean stemmerneeded){
+        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(DocText.split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
         for(int i=0;i<DocList.size();i++){
 
 
