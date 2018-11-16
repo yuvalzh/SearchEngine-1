@@ -9,9 +9,8 @@ public class SearchEngine {
     public String StopWordsPath;
     boolean StemmerNeeded;
     public HashSet<MyDocument> Docs;
-    public HashMap<Term ,String> Terms;
-    //public static HashMap<String, String> Dictionary;
-    //public HashMap<String,String> Posting;
+    public HashMap<Term ,MyDocument> Terms;
+
 
 
 
@@ -19,7 +18,7 @@ public class SearchEngine {
         CorpusPath = corpusPath;
         StopWordsPath = stopWordsPath;
         StemmerNeeded = Steemer;
-        //Docs = new HashSet<>();
+        Docs = new HashSet<>();
         ReadFile readFile = new ReadFile();
         Docs = readFile.ReadAllDocs(CorpusPath);
         Parse parse = new Parse();

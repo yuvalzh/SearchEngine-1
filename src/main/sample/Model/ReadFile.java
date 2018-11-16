@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
+import javafx.util.Pair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,13 +18,13 @@ public class ReadFile {
 
     protected File MainPath;
     public ArrayList<File> SubFilesPath;
-    static public HashSet<MyDocument> Docs;
+    static public HashSet<Pair> Docs;
     public StringBuilder stb;
 
 
     public void ReadFile(){ }
 
-    public HashSet<MyDocument> ReadAllDocs(String path) throws IOException {
+    public HashSet<Pair> ReadAllDocs(String path) throws IOException {
         this.MainPath= new File(path);
         Docs = new HashSet<>();
         SubFilesPath = new ArrayList<File>();
@@ -60,13 +62,11 @@ public class ReadFile {
                 Elements elements = d.getElementsByTag("DOC");
                 for (Element element : elements){
                     String DocID = element.getElementsByTag("DOCNO").text();
-                    String DocDate = element.getElementsByTag("DATE1").text();
-                    String DocTitle = element.getElementsByTag("TI").text();
                     String DocText = element.getElementsByTag("TEXT").text();
                     String DocCity = element.getElementsByTag("<FP=104>").text();
-                    String DocDirectory = f.getAbsolutePath();
-                    MyDocument tmp = new MyDocument(DocID,DocDirectory,DocDate,DocTitle,DocText,DocCity);
-                    Docs.add(tmp);
+                    Pair<String,String> tmp = new Pair<>(DocText,DocCity);
+                    Pair ToAdd = new Pair(DocID,tmp);
+                    Docs.add(ToAdd);
                 }
             }
         }

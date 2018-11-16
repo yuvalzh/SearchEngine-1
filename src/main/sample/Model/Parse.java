@@ -1,6 +1,8 @@
 package main.sample.Model;
 
 
+import javafx.util.Pair;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,7 +10,7 @@ public class Parse {
 
     private static HashMap<String,String> Date_DataStructure;
     private static HashSet<String> StopWords;
-    public static HashMap<Term,String> Terms;
+    public static HashMap<String,String> Terms;  // <Term ,DocID>
     public Stemmer stemmer;
     public String StopWordsPath;
     public StringBuilder stb;
@@ -21,7 +23,7 @@ public class Parse {
 
     public void Parse(){ }
 
-    public HashMap<Term,String> ParseCorpus(HashSet<MyDocument> Docs,boolean stemmerneeded , String stopwordspath) {
+    public HashMap<String,String> ParseCorpus(HashSet<Pair> Docs, boolean stemmerneeded , String stopwordspath) {
         this.StopWordsPath = stopwordspath;
         this.IsStemmerNeeded=stemmerneeded;
         StopWords = new HashSet<>();
@@ -31,7 +33,7 @@ public class Parse {
         stb = new StringBuilder();
         InitiateDates();
         InitiateStopWords();
-        Iterator<MyDocument> it = Docs.iterator();
+        Iterator<Pair> it = Docs.iterator();
         while (it.hasNext()) {
             ParseDoc(it.next(),IsStemmerNeeded);
             it.remove();
@@ -41,8 +43,8 @@ public class Parse {
 
 
 
-    public void ParseDoc(MyDocument doc , boolean stemmerneeded){
-        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getText().split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
+    public void ParseDoc(Pair doc , boolean stemmerneeded){
+        ArrayList<String> DocList = new ArrayList<String>(Arrays.asList(doc.getValue().split("[\\*\\ \\:\\?\\(\\)\\'\\`\\,\\;\\|\\<\\>\\!\\/]")));
         for(int i=0;i<DocList.size();i++){
 
 
