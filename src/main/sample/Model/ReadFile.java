@@ -63,7 +63,8 @@ public class ReadFile {
                     String DocText = element.getElementsByTag("TEXT").text();
                     String DocDate = element.getElementsByTag("DATE1").text();
                     String DocTitle = element.getElementsByTag("TI").text();
-                    String DocCity = element.getElementsByTag("F P=104").text();
+                    String DocCity = element.getElementsByTag("F").toString();
+                    // needed to handle to find city , and change it ti big letters!!
                     Docs.put(DocID,new DocDetailes(DocText,DocDate,DocTitle,DocCity));
                 }
             }

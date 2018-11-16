@@ -41,3 +41,4 @@ public class Main extends Application {
 
 
 //"/Users/eranedri/IdeaProjects/SearchEngine-Part1/corpus"
+//"/Users/eranedri/IdeaProjects/SearchEngine-Part1/Eran_Corpuse"
